@@ -10,7 +10,6 @@ import { getById, getSum, getUserPrivielgeText, getUserPrivielgeValues } from ".
 import { getUserModel } from "../../utils/models";
 import { MESSAGE, TEXT_USER_TYPE } from "../../utils/strings";
 import { getUserColumns } from "../../utils/tableColumns";
-import Curtain from "../Curtain";
 import TitleBar from "../TitleBar";
 
 import './styles.scss'
@@ -23,7 +22,6 @@ class Admin extends PureComponent {
         this.formRef = React.createRef()
         this.state = {
             showEditor: false,
-            showCurtain: false,
             users: [],
             currentUsers: []
         }
@@ -38,14 +36,11 @@ class Admin extends PureComponent {
 
     getAllUserList = async () => {
         try {
-            this.setState({ showCurtain: true })
             const users = await getAllUsers()
             this.setState({ users })
             this.filterUsers(users)
         } catch (msg) {
             message.error(msg)
-        } finally {
-            this.setState({ showCurtain: false })
         }
     }
 
@@ -77,14 +72,11 @@ class Admin extends PureComponent {
                 icon: <ExclamationCircleOutlined />,
                 onOk: async () => {
                     try {
-                        this.setState({ showCurtain: true })
                         const msg = await deleteUser(id)
                         message.success(msg)
                         await this.getAllUserList()
                     } catch(msg) {
                         message.error(msg)
-                    } finally {
-                        this.setState({ showCurtain: false })
                     }
                 },
                 okText: '确认',
@@ -99,7 +91,6 @@ class Admin extends PureComponent {
     handleCreate = async () => {
         const value = this.formRef.current.getFieldsValue()
         try {
-            this.setState({ showCurtain: true })
             const msg = await createUser(value.username, value.password, value.type, getSum(value.privilege))
             message.success(msg)
             this.setState({ modalVisible: false })
@@ -107,8 +98,6 @@ class Admin extends PureComponent {
             await this.getAllUserList()
         } catch(msg) {
             message.error(msg)
-        } finally {
-            this.setState({ showCurtain: false })
         }
     }
 
@@ -120,7 +109,6 @@ class Admin extends PureComponent {
         }
         const value = this.formRef.current.getFieldsValue()
         try {
-            this.setState({ showCurtain: true })
             const msg = await updateUser(curUser.id, value.username, value.password, value.type, getSum(value.privilege))
             message.success(msg)
             this.setState({ modalVisible: false })
@@ -133,8 +121,6 @@ class Admin extends PureComponent {
             })
         } catch (msg) {
             message.error(msg)
-        } finally {
-            this.setState({ showCurtain: false })
         }
     }
 
@@ -208,7 +194,7 @@ class Admin extends PureComponent {
     }
 
     render() {
-        const { showCurtain, users } = this.state
+        const { users } = this.state
         if (users.length === 0) {
             return null
         }
@@ -227,7 +213,6 @@ class Admin extends PureComponent {
                         </>
                     )
                 }
-                <Curtain visible={showCurtain} />
             </>
         )
     }

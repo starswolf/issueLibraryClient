@@ -14,7 +14,6 @@ import { getAllUsers } from "../../services/user.service";
 import { getIssueModel } from "../../utils/models";
 import { MESSAGE, TEXT_ALL } from "../../utils/strings";
 // import { curUserId } from "../../utils/mockData";
-import Curtain from "../Curtain";
 import { getCurrentUser } from "../../services/auth.service";
 
 const { Option } = Select
@@ -29,7 +28,6 @@ class Home extends PureComponent {
         this.issueFormRef = React.createRef()
         this.state = {
             issueModalVisible: false,
-            showCurtain: false,
             users: [],
             issueList: [],
             currentIssues: []
@@ -74,7 +72,6 @@ class Home extends PureComponent {
 
     getAllIssueList = async () => {
         try {
-            this.setState({ showCurtain: true })
             const issueList = await getAllIssues()
             this.resetCounts()
             issueList.forEach(issue => {
@@ -112,8 +109,6 @@ class Home extends PureComponent {
             this.filterIssues(issueList)
         } catch (msg) {
             message.error(msg)
-        } finally {
-            this.setState({ showCurtain: false })
         }
     }
 
@@ -214,15 +209,12 @@ class Home extends PureComponent {
     handleCreateIssue = async () => {
         const value = this.issueFormRef.current.getFieldsValue()
         try {
-            this.setState({ showCurtain: true })
             const msg = await createIssue(value.issueName, value.action, value.targetName, this.currentUserId, 0, value.startTime.valueOf(), value.details)
             message.success(msg)
             this.setState({ issueModalVisible: false })
             await this.getAllIssueList()
         } catch(msg) {
             message.error(msg)
-        } finally {
-            this.setState({ showCurtain: false })
         }
     }
 
@@ -240,7 +232,6 @@ class Home extends PureComponent {
                 icon: <ExclamationCircleOutlined />,
                 onOk: async () => {
                     try {
-                        this.setState({ showCurtain: true })
                         let newStatus = issue.status + 1
                         if (newStatus >= ISSUE_ACTIONS[issue.action].steps.length) {
                             newStatus = -1
@@ -252,8 +243,6 @@ class Home extends PureComponent {
                         await this.getAllIssueList()
                     } catch(msg) {
                         message.error(msg)
-                    } finally {
-                        this.setState({ showCurtain: false })
                     }
                 },
                 okText: '确认',
@@ -272,14 +261,11 @@ class Home extends PureComponent {
                 icon: <ExclamationCircleOutlined />,
                 onOk: async () => {
                     try {
-                        this.setState({ showCurtain: true })
-                        const msg = await updateIssue(issueId, issue.issueName, issue.action, issue.targetName, issue.ownerId, -1, issue.startTimeArr, issue.details)
+                        const msg = await updateIssue(issueId, issue.issueName, issue.action, issue.targetName, issue.ownerId, -1, issue.startTimeArr, getToday(), issue.details)
                         message.success(msg)
                         await this.getAllIssueList()
                     } catch(msg) {
                         message.error(msg)
-                    } finally {
-                        this.setState({ showCurtain: false })
                     }
                 },
                 okText: '确认',
@@ -296,14 +282,11 @@ class Home extends PureComponent {
             icon: <ExclamationCircleOutlined />,
             onOk: async () => {
                 try {
-                    this.setState({ showCurtain: true })
                     const msg = await deleteIssue(issueId)
                     message.success(msg)
                     await this.getAllIssueList()
                 } catch(msg) {
                     message.error(msg)
-                } finally {
-                    this.setState({ showCurtain: false })
                 }
             },
             okText: '确认',
@@ -333,7 +316,7 @@ class Home extends PureComponent {
                     <Col className="all" span={3}>{this.ownStatus.all}</Col>
                 </Row>
                 <Row>
-                    <Col className="name" span={6}>所有案件</Col>
+                    <Col className="name" span={6}>你可查看的案件</Col>
                     <Col className="timeout" span={3}>{this.allStatus.timeout}</Col>
                     <Col className="redRisk" span={3}>{this.allStatus.redRisk}</Col>
                     <Col className="orangeRisk" span={3}>{this.allStatus.orangeRisk}</Col>
@@ -367,7 +350,7 @@ class Home extends PureComponent {
                     </Select>
                 </Descriptions.Item>
                 <Descriptions.Item label="负责人">
-                    <Select allowClear onChange={this.onOwnerChange}>
+                    <Select defaultValue={OPTION_ALL} onChange={this.onOwnerChange}>
                         { this.getAllUsersList() }
                     </Select>
                 </Descriptions.Item>
@@ -460,7 +443,7 @@ class Home extends PureComponent {
     }
 
     render() {
-        const { currentIssues, showCurtain, users } = this.state
+        const { currentIssues, users } = this.state
         if (users.length === 0) {
             return null
         }
@@ -479,7 +462,6 @@ class Home extends PureComponent {
                     { this.renderFilterSection() }
                     { this.renderIssueTable() }
                 </div>
-                <Curtain visible={showCurtain} />
                 { this.renderIssueModal() }
             </>
         )

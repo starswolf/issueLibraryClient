@@ -1,0 +1,111 @@
+.main {
+    height: 100%;
+    padding: 20px 40px;
+
+    .summary {
+        background-color: beige;
+        border-radius: 10px;
+        padding: 20px;
+
+        .ant-row {
+            padding: 5px 0;
+            height: 30px;
+            line-height: 30px;
+        }
+        .ant-col-3 {
+            text-align: center;
+        }
+        .timeout {
+            color: darkred;
+        }
+        .redRisk {
+            color: red;
+        }
+        .orangeRisk {
+            color: orange;
+        }
+        .uncomplete {
+            color: blue;
+        }
+        .complete {
+            color: green;
+        }
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 32px;
+        padding: 10px 0;
+
+        .total {
+            font-size: 14px;
+
+            .ant-btn {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .filters {
+        background-color: beige;
+        border-radius: 10px;
+        padding: 20px 20px 4px 20px;
+
+        .ant-descriptions-item-label {
+            width: 72px;
+            height: 32px;
+            line-height: 32px;
+        }
+
+        .ant-descriptions-item-content > :first-child {
+            width: 240px;
+        }
+    }
+
+    .issueList {
+        padding-top: 20px;
+
+        .table-row-status0 {
+            .ant-table-cell:nth-child(1) {
+                background-color: green;
+            }
+        }
+        .table-row-status2 {
+            .ant-table-cell:nth-child(1) {
+                background-color: orange
+            }
+        }
+        .table-row-status3 {
+            .ant-table-cell:nth-child(1) {
+                background-color: red
+            }
+        }
+        .table-row-status4 {
+            .ant-table-cell:nth-child(1) {
+                background-color: darkred;
+            }
+        }
+    }
+}
+
+.issueModal {
+    .buttons {
+        .ant-btn-primary {
+            margin-right: 100px;
+        }
+    }
+
+    .ant-col-5 {
+        text-align: left;
+    }
+
+    .ant-row {
+        padding-left: 30px;
+    }
+
+    .ant-form-item-control {
+        width: 256px;
+    }
+}

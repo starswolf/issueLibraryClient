@@ -1,0 +1,44 @@
+.main {
+    height: 100%;
+    padding: 20px 40px;
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 32px;
+    }
+
+    .searchbar {
+        padding: 20px 0;
+        display: flex;
+        justify-content: space-between;
+
+        .ant-input-search {
+            width: 200px;
+        }
+    }
+}
+
+.noPrivilege {
+    padding-left: 20px;
+}
+
+.createModal {
+    .buttons {
+        .ant-btn-primary {
+            margin-right: 100px;
+        }
+    }
+
+    .ant-row {
+        padding-left: 30px;
+    }
+
+    .ant-col-7 {
+        text-align: left;
+    }
+
+    .ant-form-item-control {
+        width: 256px;
+    }
+}

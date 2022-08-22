@@ -1,0 +1,41 @@
+.mainForm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 320px;
+    padding: 40px 15px 40px 65px;
+    border-radius: 40px;
+    background-color: #0d4d8b;
+    color: white;
+
+    .title {
+        font-size: 36px;
+        margin: 0 24px;
+        text-align: center;
+        background: url(../../images/logo.png) no-repeat left;
+        background-size: 50px;
+    }
+
+    .loginForm {
+        margin-top: 30px;
+
+        label {
+            color: white;
+            padding-right: 20px;
+        }
+
+        .buttons {
+            text-align: center;
+
+            button {
+                width: 80px;
+            }
+        }
+    }
+}

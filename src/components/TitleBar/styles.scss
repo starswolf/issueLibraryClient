@@ -1,0 +1,46 @@
+.titlebar {
+    background-color: #0d4d8b;
+    color: white;
+    height: 70px;
+    .title {
+        width: 100%;
+        text-align: center;
+        font-size: 36px;
+        background: url(../../images/logo.png) no-repeat;
+        background-size: 50px;
+        background-position: 20px 14px;
+        padding-top: 5px;
+    }
+}
+
+.pathbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+
+    .path {
+        width: 100%;
+    }
+
+    .right {
+        .ant-space-item {
+            color: #1890ff;
+        }
+    }
+}
+
+.pwdModal {
+    .buttons {
+        .ant-btn-primary {
+            margin-right: 100px;
+        }
+    }
+
+    .ant-row {
+        padding-left: 30px;
+    }
+
+    .ant-form-item-control {
+        width: 256px;
+    }
+}

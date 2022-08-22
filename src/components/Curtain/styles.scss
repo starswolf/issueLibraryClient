@@ -1,0 +1,22 @@
+.showCurtain {
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .85);
+    z-index: 999;
+    text-align: center;
+    line-height: 100vh;
+
+    .anticon-sync {
+        font-size: 64px;
+        color: royalblue;
+    }
+}
+
+.hideCurtain {
+    display: none;
+}
